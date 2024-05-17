@@ -6,3 +6,6 @@ x64/Debug/*
 
 x64/Release/*
 !x64/Release/OpenCVApplication.exe
+*.sln
+*.vcxproj
+*.user
