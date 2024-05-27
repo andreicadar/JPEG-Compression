@@ -312,7 +312,7 @@ void demapBlockToRange(Mat_<float> block)
 }
 
 template<typename T>
-void applyDCT(Mat_<T> &block)
+void applyDCT(Mat_<T>& block)
 {
 	Mat_<float> result(8, 8);
 
@@ -347,7 +347,7 @@ void applyDCT(Mat_<T> &block)
 }
 
 template<typename T>
-void applyInverseDCT(Mat_<T> &block)
+void applyInverseDCT(Mat_<T>& block)
 {
 	Mat_<float> result(8, 8);
 
@@ -385,8 +385,20 @@ void compressBlockOf8(Mat_ <T> block, int factor)
 			{
 				for (int y = 0; y < block.cols; y++)
 				{
+					/*float res = block(x, y) / quantizationMatrices[i].matrix[x][y];
+					int resI = round(res);
+					if (resI > 255)
+						block(x, y) = 255;
+					else
+					{
+						block(x, y) = res;
+					}*/
 					block(x, y) /= quantizationMatrices[i].matrix[x][y];
 					block(x, y) = round(block(x, y));
+					if (block(x, y) > 255.0f)
+					{
+						(block(x, y)) = 255.0f;
+					}
 				}
 			}
 			return;
@@ -405,6 +417,15 @@ void decompressBlockOf8(Mat_ <T> block, int factor)
 			{
 				for (int y = 0; y < block.cols; y++)
 				{
+					/*float res = block(x, y) * quantizationMatrices[i].matrix[x][y];
+					if (res > 255)
+					{
+						block(x, y) = 255;
+					}
+					else
+					{
+						block(x, y) = res;
+					}*/
 					block(x, y) *= quantizationMatrices[i].matrix[x][y];
 				}
 			}
