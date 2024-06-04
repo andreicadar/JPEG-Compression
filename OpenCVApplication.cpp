@@ -696,7 +696,7 @@ void compressImage()
 		int nrBlocksCrCbCols = CrChannel.cols / 8;
 
 		char luminanceQuality = 50;
-		char chromanceQuality = 50;
+		char chromanceQuality = 30;
 
 		const char* compressedExtension = "_compressed.bin";
 		char* fullFilePath = (char*)malloc(strlen(fname) + strlen(compressedExtension) + 1);
